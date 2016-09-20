@@ -1,0 +1,55 @@
+% =============================================================================
+% HES-SO//Master Thesis Template
+% =============================================================================
+
+\input{00-settings/settings_base.tex}    % template settings
+\input{00-settings/codestyles.tex}       % code styles for minted
+\input{00-settings/settings_custom.tex}  % your custom packages etc
+\input{00-settings/metadata.tex}
+
+% Document
+% --------
+\begin{document}
+
+% Frontmatter
+% -----------
+\frontmatter
+
+\input{01-head/titlepage.tex}
+\input{01-head/dedication}
+\setcounter{page}{0}
+\input{01-head/acknowledgements}
+\input{01-head/preface}
+\input{01-head/abstracts}
+
+\tableofcontents
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of figures} % adds an entry to the table of contents
+\listoffigures
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of tables} % adds an entry to the table of contents
+\listoftables
+
+\setlength{\parskip}{1em}
+
+% Mainmatter
+% -----------
+\mainmatter
+\include{02-main/ch1_introduction}
+\include{02-main/ch2_figures_tables}
+\include{02-main/ch3_more_text}
+
+% Backmatter
+% -----------
+\include{03-tail/appendix}
+\backmatter
+\input{03-tail/biblio}
+
+\printglossaries 
+% Add your index here
+% Add your CV here
+
+\end{document}
+

@@ -1,0 +1,31 @@
+% ===========================================
+% = Codestyles for minted syntax highlighting
+% ===========================================
+
+
+% How to use (replace 'java' with language name):
+% - code blocks:
+%     \begin{javacode}
+%     CODE
+%     \end{javacode}
+% - files:
+%     full: \javafile{PATH}
+%     extract: \javafile[startline=x, endline=y]{PATH}
+
+% Java
+\newminted{java}{frame=single, framesep=6pt, breaklines=true, fontsize=\scriptsize}
+\newmintedfile{java}{frame=single, framesep=6pt, breaklines=true, 
+fontsize=\scriptsize}
+
+% Scala
+\newminted{scala}{frame=single, framesep=6pt, breaklines=true, fontsize=\scriptsize}
+\newmintedfile{scala}{frame=single, framesep=6pt, breaklines=true, 
+	fontsize=\scriptsize}
+
+% Python
+\newminted{python}{frame=single, framesep=6pt, breaklines=true, fontsize=\scriptsize}
+\newmintedfile{python}{frame=single, framesep=6pt, breaklines=true, fontsize=\scriptsize}
+
+% Plain text
+\newminted{text}{frame=single, framesep=6pt, breaklines=true, breakanywhere, fontsize=\scriptsize}
+\newmintedfile{text}{frame=single, framesep=6pt, breaklines=true, breakanywhere, fontsize=\scriptsize}
