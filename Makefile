@@ -1,7 +1,7 @@
 TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
 BIB = biber
 NAME = thesis
-GLOSS = makeglossaries
+GLO = makeglossaries
 TEXFILE = ${NAME}.tex
 PDFFILE = ${NAME}.pdf
 BCFFILE = ${NAME}.bcf
