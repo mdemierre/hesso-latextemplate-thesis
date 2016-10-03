@@ -12,8 +12,8 @@ all : ${PDFFILE}
 
 ${PDFFILE} : ${TEXFILE}
 	${TEX} ${NAME}
-	${GLO} ${NAME}
 	${BIB} ${NAME}
+	${GLO} ${NAME}
 	${TEX} ${NAME} 
 	${TEX} ${NAME} 
 
@@ -33,6 +33,7 @@ clean :
 	@rm *.bcf || true
 	@rm *.glg || true
 	@rm *.glo || true
+	@rm *.gls || true
 	@rm *.lot || true
 	@rm *.xdy || true
 	@rm 02-main/*.aux || true
