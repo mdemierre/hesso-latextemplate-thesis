@@ -1,10 +1,22 @@
+# ----------------------------------------------------------------------------
+# Creates the output PDF for your thesis
+#
+# WARNING: For now, this makefile is very basic. You need to "make clean_all"
+# and "make" to regenerate the document, because we cannot track all LaTeX
+# changes.
+#
+# TODO: move to latexmk to fix above problem
+# ----------------------------------------------------------------------------
+
+# Commands
 TEX = pdflatex -shell-escape -interaction=nonstopmode -file-line-error
 BIB = biber
-NAME = thesis
 GLO = makeglossaries
+
+# File info
+NAME = thesis
 TEXFILE = ${NAME}.tex
 PDFFILE = ${NAME}.pdf
-BCFFILE = ${NAME}.bcf
 
 .PHONY: all clean clean_all
 
