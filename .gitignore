@@ -34,10 +34,11 @@
 *.run.xml
 *.bcf
 *.pyg
+*.mtc*
+*.lol
 
 # Minted
 _minted*
 
 # Generated pdf
 # thesis.pdf
-

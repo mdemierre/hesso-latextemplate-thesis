@@ -2,36 +2,35 @@
 % Template settings
 % ==================
 
-\documentclass[a4paper,11pt,fleqn]{book}
-
-% Language and encoding
-% ---------------------
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[french,english]{babel}
-
 % General tools
 % -------------
 \usepackage{etoolbox}
 
 % Page style
 % ----------
-\usepackage[a4paper,top=25mm,bottom=25mm,inner=30mm,outer=20mm]{geometry}
+\usepackage[margin=3cm, left=3.5cm, right=3.5cm, twoside=true]{geometry}
 \usepackage{fancyhdr}
 \setlength{\headheight}{14pt}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
 \pagestyle{fancy}
+
+% Standard pages (inside chapters)
 \fancyhf{}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 \fancyhead[OR]{\bfseries \nouppercase{\rightmark}}
 \fancyhead[EL]{\bfseries \nouppercase{\leftmark}}
 \fancyfoot[EL,OR]{\thepage}
+
+% First page of chapters
 \fancypagestyle{plain}{
 	\fancyhf{}
 	\renewcommand{\headrulewidth}{0pt}
 	\renewcommand{\footrulewidth}{0pt}
-	\fancyfoot[EL,OR]{\thepage}}
+	\fancyfoot[EL,OR]{\thepage}
+}
+
+% Imports for external PDFs
 \fancypagestyle{addpagenumbersforpdfimports}{
 	\fancyhead{}
 	\renewcommand{\headrulewidth}{0pt}
@@ -39,20 +38,27 @@
 	\fancyfoot[RO,LE]{\thepage}
 }
 
-% Use plain style for empty page when clearing
-\makeatletter
-\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
-	\hbox{}
-	\thispagestyle{empty}
-	\newpage
-	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-\makeatother \clearpage{\pagestyle{plain}\cleardoublepage}
+% Use empty style for page when clearing double pages
+\def\cleartoodd{%
+	\clearpage%
+	\ifodd\value{page}\else\mbox{}\thispagestyle{empty}\newpage\fi%
+}
+
+\def\clearchap{%
+	\ifodd\value{page}\else\mbox{}\thispagestyle{empty}\fi%
+}
+
+% \cleardoublepage replaced by \cleartoodd
+\let\origdoublepage\cleardoublepage
+\renewcommand{\cleardoublepage}{%
+	\cleartoodd%
+}
 
 % Fonts
 % -----
-\usepackage{tgheros}                       % Sans serif
-\usepackage[bitstream-charter]{mathdesign} % Serif
-\usepackage{sourcecodepro}                 % Monospace
+
+% Helvetica (Arial used in the MSE Word template)
+\usepackage{helvet}
 
 % Math
 % ----
@@ -60,93 +66,186 @@
 
 % Floats and figures
 % ------------------
-\usepackage{float}                                  % floats
-\usepackage[small,justification=centering]{caption} % captions
-\usepackage{subcaption}
+\usepackage{newfloat}          % floats
+\usepackage[twoside]{caption}  % captions
+\usepackage{subcaption}        % subcaptions
+\usepackage[section]{placeins} % allows to put float barriers
+
+% Float captions in italics, with label in margin
+\DeclareCaptionLabelFormat{title}{#1 #2}
+\DeclareCaptionLabelFormat{hangout}{\llap{#1 #2\hspace{5mm}}}
+\captionsetup{
+	format=hang,
+	labelformat=hangout,
+	singlelinecheck=false,
+	font={it}
+}
 
 % Caption with source for figure
-\newcommand*{\captionsource}[2]{%
+% TODO: improve this to use square brackets like the normal "caption"
+\newcommand*{\captionsource}[3]{%
 	\caption[{#1}]{%
-		#1%
+		#2%
 		
-		\textbf{Source:} #2%
+		\textbf{Source:} #3%
 	}%
 }
 
 % Tables
 % ------
-\usepackage{booktabs}
-\usepackage{multirow}
+\usepackage{booktabs} % much better tables
+\usepackage{multirow} % allows to fuse rows
+\usepackage{array}    % manipulate array
+\usepackage{tabularx} % better tables
+
+% Define new tabularx column types:
+%  - R: streteched right aligned
+%  - C: stretched centered
+%  - N: left aligned, specified space
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+\newcolumntype{N}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% Set row height multiplicator to provide more breathing space
+\renewcommand{\arraystretch}{1.3} 
 
 % Bibliography
 % -------------------
+
+% Use biber, with numeric style and no sorting (citation order)
 \usepackage[
 backend=biber,
-bibencoding=auto,
-sorting=nty,
-defernumbers=true
+style=numeric,
+sorting=none,
+bibencoding=auto
 ]{biblatex}
 \addbibresource{03-tail/bibliography.bib}
 
+
+% Tables of contents, figures, tables and listings
+% ------------------------------------------------
+\usepackage{tocloft}
+\newlistof{listing}{lol}{List of Listings}
+\setcounter{tocdepth}{1} % Depth to 'section'
+\setlength{\cftfigindent}{0pt}  % remove indentation from figures in lof
+\setlength{\cftfignumwidth}{1cm}
+\setlength{\cfttabindent}{0pt}  % remove indentation from tables in lot
+\setlength{\cfttabnumwidth}{1cm}
+\setlength{\cftlistingindent}{0pt}
+\setlength{\cftlistingnumwidth}{1cm}
+
+% Mini tables of contents
+% -----------------------
+\usepackage{minitoc}
+
+% no "Contents" title
+\mtcsettitle{minitoc}{Contents} 
+
+% Layout
+\setlength{\mtcindent}{-0.5em}
+\mtcsetoffset{minitoc}{-1em}
+
+% Spacing above and below table
+\mtcsetfeature{minitoc}{before}{\vspace{0.5cm}}
+\mtcsetfeature{minitoc}{after}{\vspace{-0.25cm}}
+\renewcommand{\mtifont}{\sffamily\bfseries\large}
 
 % Colors & graphics
 % -----------------
 \usepackage[table]{xcolor}    % colors
 \usepackage[pdftex]{graphicx} % graphics importing
-\graphicspath{{img/}}
+\graphicspath{{02-main/figures/}}
 \definecolor{gray80}{gray}{0.80}
 
-% Paragraphs
+
+% Code and syntax highlighting
+% ----------------------------
+\usepackage[newfloat]{minted}   % code highlighting
+
+% Typography
 % ----------
 \usepackage{csquotes}                    % paragraph indentation and spacing
 \usepackage[defaultlines=3,all]{nowidow} % avoid widows and orphans
 \usepackage{microtype}                   % typographic improvements
 \usepackage{parskip}                     % No indent and auto-space between paragraphs
+\usepackage[super]{nth}
 
+\usepackage{paralist}
+\usepackage{enumitem}
+\setlist{after=\vspace{\baselineskip}}
 
 % Section and chapters headings
 % -----------------------------
-\usepackage{titlesec} % section titles formatting
-\usepackage{sectsty}  % sectioning commands
-
-% -- Sections --
+\usepackage[explicit]{titlesec} % titles formatting
+%\usepackage{titletoc} % titles formatting in ToC etc
+%\usepackage{sectsty}  % sectioning commands
 
 % -- Chapters --
 % Remove "Chapter N" and use a sans-serif font
-\titleformat{\chapter}[block]
-{\Huge}
-{\thechapter\hspace{12pt}\textcolor{gray80}{|}\hspace{12pt}}
-{0pt}
-{\Huge\bfseries}
 
-\titlespacing*{\chapter}
-{0pt}
-{-20pt}
-{20pt}
+% Set layout lengths
+\setlength{\headheight}{8mm}
+\setlength{\footskip}{1.5cm}
+\addtolength{\textheight}{-.5cm}
 
-% Use a sans-serif font
-%\allsectionsfont{\sffamily\bfseries}
+\titlespacing{\chapter}{-5mm}{-10mm}{3mm}
+\titlespacing{\section}{-5mm}{3mm}{-2mm}
+\titlespacing{\subsection}{-5mm}{2mm}{-2mm}
+\titlespacing{\subsubsection}{-5mm}{2mm}{-1mm}
 
 
-% Code and syntax highlighting
-% ----------------------------
-\usepackage{minted}   % code highlighting
+%\titleformat{\chapter}[block]
+%{\Huge}
+%{\thechapter\hspace{12pt}\textcolor{gray80}{|}\hspace{12pt}}
+%{0pt}
+%{\Huge\bfseries}
 
-
-% Page style
-% -----------------
-
-
-% References
-% -----------
-\usepackage{url}
-\usepackage{hyperref}
+\titleformat{\chapter}{\Huge\bfseries}{\llap{\thechapter\hspace{12pt}\textcolor{gray80}{|}}}{0mm}{%
+	\hfill\begin{minipage}[t]{\dimexpr\textwidth}\raggedright#1\end{minipage}%
+}
+\titleformat{\section}{\Large\bfseries}{\llap{\thesection}}{0mm}{%
+	\hfill\begin{minipage}[t]{\dimexpr\textwidth}\raggedright#1\end{minipage}%
+}
+\titleformat{\subsection}{\large \bfseries}{\llap{\thesubsection}}{0mm}{%
+	\hfill\begin{minipage}[t]{\dimexpr\textwidth}\raggedright#1\end{minipage}%
+}
+\titleformat{\subsubsection}{\bfseries}{\llap{\thesubsubsection}}{0mm}{%
+	\hfill\begin{minipage}[t]{\dimexpr\textwidth}\raggedright#1\end{minipage}%
+}
 
 % Misc
 % ------
 \usepackage{lipsum}    % filler text
+\usepackage{blindtext} % random text
 \usepackage{lscape}    % easy landscape pages
 \usepackage{pdflscape} % landscape pages for PDFs
+
+% Allow email typesetting
+\newcommand{\email}[1]{%
+	\href{mailto:#1}{\textit{#1}}%
+}
+
+% References
+% -----------
+\usepackage{url}
+
+% pdf metadata
+\usepackage[
+	pdfauthor={\Author},
+	pdftitle={\ThesisTitle},
+	pdfsubject={MSE project report: "\ThesisTitle", by \Author},
+	pdfkeywords={\Keywords}]{hyperref}
+		
+% Hyperlinks
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	citecolor=black,
+	filecolor=black,
+	urlcolor=black,
+}
+\providecommand*{\listingautorefname}{Listing}
+
 
 % Glossary
 % --------

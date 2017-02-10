@@ -1,75 +1,130 @@
+%    Copyright 2017 Marc Demierre, HES-SO//Master
+%
+% Licensed under the Apache License, Version 2.0 (the "License");
+% you may not use this file except in compliance with the License.
+% You may obtain a copy of the License at
+%
+% http://www.apache.org/licenses/LICENSE-2.0
+%
+% Unless required by applicable law or agreed to in writing, software
+% distributed under the License is distributed on an "AS IS" BASIS,
+% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+% See the License for the specific language governing permissions and
+% limitations under the License.
+
 % =============================================================================
-% HES-SO//Master Thesis Template
+% | HES-SO//Master - Thesis project report template                           |
+% |                                                                           |
+% | Originally based on the EPFL template, with many adjustements             |
 % =============================================================================
 
-% Configuration
-% -------------
-\input{00-settings/settings_base}    % template settings
-\input{00-settings/codestyles}       % code styles for minted
-\input{00-settings/settings_custom}  % your custom packages etc
-\input{00-settings/metadata}         % thesis + school info
+% Document settings
+\documentclass[a4paper,11pt,fleqn]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+
+% -----------------------------------------------------------------------------
+% Preamble
+% -----------------------------------------------------------------------------
+\input{00-settings/metadata.tex}         % your project data
+\input{00-settings/settings_base.tex}    % template settings
+\input{00-settings/codestyles.tex}       % code styles for minted
+\input{00-settings/settings_custom.tex}  % your custom packages etc
 
 \begin{document}
-
-% ----------------------------------------------------------------------------
-% Frontmatter
-% ----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+% Front matter
+% -----------------------------------------------------------------------------
 \frontmatter
 
-\input{01-head/titlepage} % don't modify, it follows the MSE mandatory format
-\input{01-head/dedication}
-\setcounter{page}{0} % start numbering here
-\input{01-head/acknowledgements}
-\input{01-head/preface}  % should be written by someone else or left out!
+\dominitoc
+
+\input{01-head/titlepage.tex}
+
+% Page for student info and signatures
+\cleardoublepage
+\input{01-head/reportinfo}
+
+% Acknowledgments (your dedication etc)
+\cleardoublepage
+\input{01-head/acknowledgments}
+
+% Preface (to be written by someone else)
+\cleardoublepage
+\input{01-head/preface}
+
+% French + English abstracts
+\cleardoublepage
 \input{01-head/abstracts}
 
 % Table of contents
-\tableofcontents
 \cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
 
 % List of figures
-\phantomsection
-\addcontentsline{toc}{chapter}{List of figures} % adds an entry to the table of contents
-\listoffigures
 \cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
 
 % List of tables
+\cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{List of tables} % adds an entry to the table of contents
+\addcontentsline{toc}{chapter}{List of Tables}
 \listoftables
 
-% TODO: List of listings
+% List of listings
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Listings}
+\listoflistings
 
-% Restore space between paragraphs (was 0 for tables)
+% Restore paragraphs
 \setlength{\parskip}{1em}
 
-% ----------------------------------------------------------------------------
-% Mainmatter
-% ----------------------------------------------------------------------------
+% Bold fonts for sections in minitoc
+\renewcommand{\cftsecfont}{\sffamily\bfseries}
+\renewcommand{\cftsecleader}{\sffamily\bfseries\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecpagefont}{\sffamily\bfseries}
+
+
+% -----------------------------------------------------------------------------
+% Main matter
+% -----------------------------------------------------------------------------
 \mainmatter
 
-% Put your chapters here...
+% Chapters
+\setcounter{mtc}{7} % Help minitoc skip the front matter chapters
 \include{02-main/ch1_introduction}
-\include{02-main/ch2_figures_tables}
-\include{02-main/ch3_more_text}
+\include{02-main/ch2_analysis}
+\include{02-main/ch3_design}
+\include{02-main/ch4_implementation}
+\include{02-main/ch5_validation}
+\include{02-main/ch6_conclusion}
 
-% Put your appendices here
-\include{03-tail/appendix}
+% Appendices
+\appendix
+\include{03-tail/01_appendix_example}
 
-% ----------------------------------------------------------------------------
-% Backmatter
-% ----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+% Back matter
+% -----------------------------------------------------------------------------
 \backmatter
 
 % Bibliography
-\input{03-tail/biblio}
+\cleardoublepage
+\printbibliography[title={References}, heading=bibintoc]
 
 % Glossary
+\cleardoublepage
 \printglossaries
 
-% TODO: index?
+% TODO: Add index
 
-% TODO: CV?
+% Add your CV here if you want
 
 \end{document}
 

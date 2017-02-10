@@ -3,15 +3,17 @@
 % ==========================================================================
 
 \begin{titlepage}
+\newgeometry{margin=2.5cm}
+{\fontfamily{phv}\fontseries{mc}\selectfont
 	\begin{flushright}
 		\begin{minipage}{0.5\textwidth}
 			\begin{flushleft}
-				\includegraphics[width=0.9\textwidth]{mse_logo}
+				\includegraphics[width=0.9\textwidth]{img/mse_logo}
 			\end{flushleft}
 		\end{minipage}%
 		\begin{minipage}{0.5\textwidth}
 			\begin{flushright}
-				\includegraphics[width=0.6\textwidth]{hesso_logo}
+				\includegraphics[width=0.6\textwidth]{img/hesso_logo}
 			\end{flushright}
 		\end{minipage}
 		\begin{flushleft}
@@ -27,7 +29,7 @@
 		}
 		
 		{
-		\LARGE Orientation: Information and Communication Technologies (ICT)\\[0.5cm]
+		\LARGE Orientation: \Orientation\\[0.5cm]
 		~\\[1cm]
 		}
 		% Title
@@ -43,20 +45,22 @@
 		{
 			\large
 			Under the direction of: \\
-			\Director \\
-			\DirectorResearchUnit \\[0.5cm]
+			\Advisor \\
+			\AdvisorResearchUnit \\[0.5cm]
 		}
 		{
 			\large
 			External expert: \\
-			\ExternalExpert
+			\Expert
 		}
 		\vfill
 		
 		% Bottom of the page
-		{\large \Place, HES-SO//Master, \today}
+		{\large \Place, HES-SO//Master, \Date}
 		
 	\end{flushright}
+}
+\restoregeometry
 \end{titlepage}
 
 
