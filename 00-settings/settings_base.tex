@@ -103,9 +103,18 @@
 %  - R: streteched right aligned
 %  - C: stretched centered
 %  - N: left aligned, specified space
-\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
-\newcolumntype{C}{>{\centering\arraybackslash}X}%
-\newcolumntype{N}[1]{>{\raggedleft\arraybackslash}p{#1}}
+% Not using these, switching to columns where you specify the width
+%\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+%\newcolumntype{C}{>{\centering\arraybackslash}X}%
+%\newcolumntype{N}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%% Definitions for line breaks in tables
+% left fixed width:
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+% center fixed width:
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+% flush right fixed width:
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
 
 % Set row height multiplicator to provide more breathing space
 \renewcommand{\arraystretch}{1.3} 
