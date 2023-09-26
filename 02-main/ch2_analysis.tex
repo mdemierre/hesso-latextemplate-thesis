@@ -14,7 +14,7 @@ This chapter shows example of picture and also serves to populate the different 
 
 This section contains an examples of table: \autoref{tab:esempio}
 
-\begin{table}[H]
+\begin{table}[!ht]
 	\centering
 	\begin{tabular}{ccc}
 		\toprule
@@ -34,14 +34,14 @@ This section contains an examples of table: \autoref{tab:esempio}
 
 This section contains examples of figures: \autoref{fig:galleria}, \autoref{fig:lorem}, \autoref{fig:ipsum}, \autoref{fig:dolor}, \autoref{fig:sit}
 
-\begin{figure}[H] 
+\begin{figure}[!ht] 
 	\centering 
 	\includegraphics[width=0.5\columnwidth]{galleria_stampe} 
 	\captionsource{A floating figure}{A floating figure: the lithograph \emph{Galleria di stampe}, of M.~Escher}{\url{http://www.mcescher.com/}}
 	\label{fig:galleria} 
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{lorem}
@@ -78,7 +78,7 @@ This section contains examples of figures: \autoref{fig:galleria}, \autoref{fig:
 
 \autoref{lst:listing_example} shows an example of Java code rendered with minted.
 
-\begin{listing}
+\begin{listing}[!ht]
 	\javafile{02-main/listings/HelloWorld.java}
 	\caption{Example of listing using the minted package}
 	\label{lst:listing_example}

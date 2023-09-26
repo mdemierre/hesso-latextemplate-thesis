@@ -78,7 +78,8 @@
 	format=hang,
 	labelformat=hangout,
 	singlelinecheck=false,
-	font={it}
+	font={it},
+    justification=centering
 }
 
 % Caption with source for figure
@@ -188,10 +189,14 @@ bibencoding=auto
 \setlength{\footskip}{1.5cm}
 \addtolength{\textheight}{-.5cm}
 
+% Set numbering
+\setcounter{secnumdepth}{3}
+
 \titlespacing{\chapter}{-5mm}{-10mm}{3mm}
-\titlespacing{\section}{-5mm}{3mm}{-2mm}
-\titlespacing{\subsection}{-5mm}{2mm}{-2mm}
-\titlespacing{\subsubsection}{-5mm}{2mm}{-1mm}
+\titlespacing{\section}{-5mm}{3mm}{2mm}
+\titlespacing{\subsection}{-5mm}{2mm}{2mm}
+\titlespacing{\subsubsection}{-5mm}{2mm}{1mm}
+\titlespacing{\subsubsubsection}{-5mm}{2mm}{1mm}
 
 
 %\titleformat{\chapter}[block]
@@ -212,6 +217,7 @@ bibencoding=auto
 \titleformat{\subsubsection}{\bfseries}{\llap{\thesubsubsection}}{0mm}{%
 	\hfill\begin{minipage}[t]{\dimexpr\textwidth}\raggedright#1\end{minipage}%
 }
+
 
 % Misc
 % ------
